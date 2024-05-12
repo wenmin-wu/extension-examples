@@ -63,6 +63,12 @@ export class CustomCompleterProvider implements ICompletionProvider {
     if (!editor) {
       return Promise.reject('No editor');
     }
+    const session = context.session;
+    let filename = "test.py"; // default file name
+    if (session) {
+      console.log('Session path:', session.path, 'Session model path:', session.model.path);
+      filename = session.path;
+    }
     const position = editor.getCursorPosition();
     const currOffset = editor.getOffsetAt(position);
 
@@ -77,7 +83,7 @@ export class CustomCompleterProvider implements ICompletionProvider {
           before: before,
           after: after,
           max_num_results: this._settings.maxResults,
-          filename: "test.py",
+          filename: filename,
           region_includes_beginning: currOffset === 0,
           region_includes_end: false,
         }
