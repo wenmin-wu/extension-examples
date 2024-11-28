@@ -100,12 +100,11 @@ export class CustomCompleterProvider implements ICompletionProvider {
     try {
       resp = await fetch(urlWithParams);
       const data: AutocompleteResult = await resp.json();
-
       const items: CompletionHandler.ICompletionItem[] = data.results.map(
         (res) => ({
           label: res.new_prefix,
-          type: "tabnine",
-          icon
+          type: "copilot",
+          icon,
         })
       )
       return {
